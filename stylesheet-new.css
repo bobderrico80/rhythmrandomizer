@@ -1,0 +1,42 @@
+body {
+    margin:0px;
+    padding:0px;
+    font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+}
+
+#banner {
+    outline:1px solid red;
+    height:40px;
+    background-color:teal;
+}
+
+#banner h1 {
+    outline:1px solid blue;
+    margin:0px;
+    color:white;
+    font-size:30px;
+    display:inline-block;
+}
+
+img.noteLabel {
+    height:20px
+}
+
+#rhythmContainer {
+    height:300px;
+    text-align:center;
+}
+
+#rhythm {
+    display:inline-block;
+    white-space: nowrap;
+}
+
+.measure {
+    display:inline-block;
+}
+
+img.note {
+    display:inline-block;
+    vertical-align: bottom;
+}
