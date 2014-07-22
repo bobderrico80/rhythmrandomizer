@@ -1,113 +1,147 @@
-@font-face {
-	font-family: musisync;
-	src: url(MusiSync.ttf);
-} 
-
 body {
-	font-family: sans-serif;
-	font-size:1em;
+    margin:0px;
+    padding:0px;
+    font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+}
+
+#banner {
+    height:40px;
+    background-color:teal;
+    padding-left:10px;
+}
+
+#banner h1 {
+    margin:0px;
+    color:white;
+    font-size:30px;
+    display:inline-block;
+    line-height:35px;
+}
+
+#buttonBar {
+    text-align:center;
+}
+
+#buttonBar input[type="button"] {
+    border:1px solid black;
+    background-color:lightgrey;
+    font-size:1.25em;
+    margin-top:5px;
+    margin-bottom:5px;
+}
+
+#rhythmContainer {
+    height:300px;
+    text-align:center;
 }
 
 #rhythm {
-	font-family: musisync;
-	font-size: 10em;
-	text-align: justify;
-	display: table;
-	height:300px;
-	margin-left:auto;
-	margin-right:auto;
+    display:inline-block;
+    white-space: nowrap;
 }
 
-#rhythmnotation {
-	display: table-cell;
-	vertical-align: middle;
-}	
-
-#optscontainer {
-	text-align: center;
-	margin-bottom: 10px;
-	margin-top: 10px;
-	padding:5px;
-	font-size:1em;
+.measure {
+    display:inline-block;
 }
 
-#randomize {
-	text-align: center;
-	margin-bottom: 10px;
+img.note {
+    display:inline-block;
+    vertical-align: bottom;
 }
 
-#randomize button {
-	border: black solid 2px;
-	padding: 5px;
-	font-size: 1em;
+#optionTabs ul {
+    list-style:none;
+    margin:0px;
+    padding:0px;
 }
 
-#optstable {
-	margin-left:auto;
-	margin-right:auto;
-	width:95%;
-	max-width:1000px;
-	border-color:#005f5f;
+#optionTabs li {
+    display:inline-block;
+    height:35px;
+    width:125px;
+    line-height:35px;
+    padding-left:5px;
+    padding-right:5px;
+    margin-left:2px;
+    margin-right:3px;
+    text-align:center;
+    border-top:1px solid black;
+    border-left:1px solid black;
+    border-right:1px solid black;
 }
 
-#optstable th {
-	background-color:#005f5f;
-	font-size:.9em;
-	color:white;
+#optionTabs li.selected {
+    background-color:teal;
+    color:white;
 }
 
-#optsrow td {
-	vertical-align:top;
-	text-align:center;
+#options {
+    width:800px;
+    margin-left:auto;
+    margin-right:auto;
 }
 
-#optsrow ul {
-	list-style-type:none;
+.optionsPage {
+    border:1px solid black;
+    min-height:305px;
+    padding:10px;
 }
 
-#optsrow h3 {
-	margin-bottom:5px;
-	font-size:.8em;
+.selectionWrapper {
+    margin-top:5px;
+    margin-bottom:5px;
 }
 
-#genopts {
-	width:20%;
-	border-left:1px solid #005f5f;
-	border-right:1px solid #005f5f;
-	border-bottom:1px solid #005f5f;
+#generalOptions label {
+    display:inline-block;
+    width:130px;
+    text-align:right;
+    padding-right:5px;
 }
 
-#noteoptsleft {
-	width:auto;
-	border-bottom:1px solid #005f5f;
+#generalOptions select {
+    width:130px;
+    border:1px solid black;
+    font-size:.95em;
 }
 
-#noteoptsright {
-	width:auto;
-	border-bottom:1px solid #005f5f;
-	border-right:1px solid #005f5f;
+#noteOptions {
+    text-align:center;
+    display:none;
 }
 
-.notation{
-	font-family:musisync;
-	font-size:2.25em;
-	margin-bottom:20px;
-	margin-top:-10px;
+#noteOptions fieldset {
+    display:inline-block;
+    width:370px;
+    padding-top:5px;
+    padding-bottom:20px;
+    padding-left:0px;
+    padding-right:0px;
+    margin:5px;
+    border:1px solid black;
 }
 
-#copyright {
-	font-size:.7em;
-	text-align:center;
+#noteOptions legend {
+    text-align:left;
+    margin-left:10px;
+    font-size:.95em;
 }
 
-#copyright p {
-	margin:0px;
+.noteLabelWrapper {
+    display:inline-block;
+    width:50px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-align:left;
+    margin-left:1px;
+    margin-right:1px;
 }
 
-h1 {
-	font-weight:bold;
-	font-size:1.5em;
+img.noteLabel {
+    height:30px;
 }
 
-
-
+img[title="whole rest"] {
+    position:relative;
+    left:-30px;
+}
