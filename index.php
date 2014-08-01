@@ -27,6 +27,7 @@ try {
             <h1>The Rhythm Randomizer</h1>
         </div>
         <div id="rhythmContainer">
+            <img src="preloader.gif" class="preloader" alt="loading..." title="loading..."/>
             <div id="rhythm">
 
             </div>
@@ -119,19 +120,27 @@ try {
             /** FUNCTIONS **/
             /***************/
             
+            //run the randomize function on page load
+            $(function(){$("#randomize").click();});
+            
             function scaleRhythm() {
                 //Get width of rhythm at full resolution
                 var rhythmWidth = $("#rhythm").width();
+                console.log("rhythmWidth: " + rhythmWidth);
                 
                 //Get current screen/window width
                 var screenWidth = window.innerWidth;
+                console.log("screenWidth: " + screenWidth);
                 
                 //Compute ratio between curren screen and window widths
                 var ratio =   screenWidth / rhythmWidth;
+                console.log("ratio: " + ratio);
                 
                 //Multiply img note height by ratio, then by 90% to provide some
                 //breathing room on either side of the rhythm
+                console.log("oldHeight: " + $(".note").height());
                 var newHeight = ($(".note").height() * ratio) * .9;
+                console.log("newHeight: " + newHeight);
                 
                 //Set img note height to new height or 300px, whichever is smaller
                 if (newHeight < 300) {
@@ -150,6 +159,10 @@ try {
             
             //Randomize button
             $("#randomize").click(function(){
+                
+                //display preloader
+                $(".preloader").css("display","block");
+                
                 //get general options from form
                 var timeSignature = $("#timeSignature").val();
                 var phraseLength = $("#phraseLength").val();
@@ -166,7 +179,6 @@ try {
                     return;
                 }
                 
-                
                 //format note option ids into a comma-delimited string
                 var noteOptions = "";
                 for (var i=0; i < checked.length; i++) {
@@ -174,7 +186,8 @@ try {
                 }
                 
                 //remove the final comma and space
-                noteOptions = noteOptions.substr(0, noteOptions.length - 1);    
+                noteOptions = noteOptions.substr(0, noteOptions.length - 1);
+                
                 //ajax call
                 $.ajax("randomize.php", {
                     data : {
@@ -185,7 +198,11 @@ try {
                     type : "GET",
                     success : function(response) {
                         $("#rhythm").html(response);
-                        scaleRhythm();
+                        setTimeout(function(){
+                            scaleRhythm();
+                            $(".preloader").css("display","none");
+                            $(".note").css("opacity","1");
+                        }, 200);
                     },
                     error : function(xhr, status, errorThrown) {
                         console.log(status + " | " + errorThrown);

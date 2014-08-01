@@ -33,6 +33,7 @@ body {
 #rhythmContainer {
     height:300px;
     text-align:center;
+    overflow: hidden;
 }
 
 #rhythm {
@@ -40,12 +41,21 @@ body {
     white-space: nowrap;
 }
 
+.preloader {
+    display:none;
+    width:128px;
+    margin-top:86px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .measure {
     display:inline-block;
 }
 
-img.note {
+.note {
     display:inline-block;
+    opacity:0;
     vertical-align: bottom;
 }
 
