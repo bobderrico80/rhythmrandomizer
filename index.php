@@ -19,6 +19,7 @@ try {
     <head>
         <title>The Rhythm Randomizer</title>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="js/imagesloaded.js"></script>
         <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
         <meta name="viewport" content="width=device-width"/>
     </head>
@@ -198,11 +199,11 @@ try {
                     type : "GET",
                     success : function(response) {
                         $("#rhythm").html(response);
-                        setTimeout(function(){
+                        $(".note").imagesLoaded(function(){
                             scaleRhythm();
                             $(".preloader").css("display","none");
                             $(".note").css("opacity","1");
-                        }, 200);
+                        });
                     },
                     error : function(xhr, status, errorThrown) {
                         console.log(status + " | " + errorThrown);
