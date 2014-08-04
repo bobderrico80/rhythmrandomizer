@@ -28,7 +28,9 @@ try {
             <h1>The Rhythm Randomizer</h1>
         </div>
         <div id="rhythmContainer">
-            <img src="preloader.gif" class="preloader" alt="loading..." title="loading..."/>
+            <div class="preloader">
+                <img src="preloader.gif" alt="loading..." title="loading..."/>
+            </div>
             <div id="rhythm">
 
             </div>
@@ -127,31 +129,41 @@ try {
             function scaleRhythm() {
                 //Get width of rhythm at full resolution
                 var rhythmWidth = $("#rhythm").width();
-                console.log("rhythmWidth: " + rhythmWidth);
                 
                 //Get current screen/window width
                 var screenWidth = window.innerWidth;
-                console.log("screenWidth: " + screenWidth);
                 
                 //Compute ratio between curren screen and window widths
                 var ratio =   screenWidth / rhythmWidth;
-                console.log("ratio: " + ratio);
                 
                 //Multiply img note height by ratio, then by 90% to provide some
                 //breathing room on either side of the rhythm
-                console.log("oldHeight: " + $(".note").height());
                 var newHeight = ($(".note").height() * ratio) * .9;
-                console.log("newHeight: " + newHeight);
                 
                 //Set img note height to new height or 300px, whichever is smaller
                 if (newHeight < 300) {
                     $(".note").css("height",newHeight);
                     //code to center rhythm horizontally
-                    $("#rhythm").css("margin-top",(300-newHeight)/2);
+                    $("#rhythm").css("margin-top",((300 - $("#rhythm").height()) / 2));
                 } else {
                     $(".note").css("height",300);
                     $("#rhythm").css("margin-top",0);
                 }
+                //TODO - FIX THIS!!!!
+                //space-out notes on systems that are shorter than the rhythm
+                console.log ("Rhythm width: " + $("#rhythm").width());
+                $(".system").each(function(){
+                    console.log("System width: " + $(this).width());
+                    if ($(this).width() < $("#rhythm").width()) {
+                        var sizeDiff = $("#rhythm").width() - $(this).width();
+                        console.log("sizeDiff: " + sizeDiff);
+                        var spacerCount = $(this).find('.spacer').length;
+                        console.log("spacerCount: " + spacerCount);
+                        var spacerSize = sizeDiff / spacerCount;
+                        console.log("spacerSize: " + spacerSize);
+                        $(this).find('.spacer').css("width",spacerSize);
+                    }
+                }); 
             }
             
             /*********************/
@@ -206,7 +218,13 @@ try {
                         });
                     },
                     error : function(xhr, status, errorThrown) {
-                        console.log(status + " | " + errorThrown);
+                        $("#rhythm").html("<p>There was a problem getting your rhythm.</p>" + 
+                                "<p>Sorry about that.  Please click the Randomize " +
+                                "button again.  If you are still getting this error, " +
+                                "please <a href=\"mailto:bob@derricowebdesign.com\">" +
+                                "send us an e-mail.</a></p>" +
+                                "<p>Error information: xhr: " + xhr + " | status: " +
+                                status + " | errorThrown: " + errorThrown + "</p>");
                     }
                 }); 
             });

@@ -43,10 +43,23 @@ body {
 
 .preloader {
     display:none;
+    height:300px;
+    text-align:center;
+}
+
+.preloader img {
+    display:inline-block;
     width:128px;
     margin-top:86px;
-    margin-left: auto;
-    margin-right: auto;
+}
+
+.system {
+    display:inline-block;
+    margin-top:40px;
+}
+
+.first {
+    margin-top:0px;
 }
 
 .measure {
@@ -57,6 +70,11 @@ body {
     display:inline-block;
     opacity:0;
     vertical-align: bottom;
+}
+
+.spacer {
+    height:10px;
+    display:inline-block;
 }
 
 #optionTabs ul {
