@@ -34,11 +34,13 @@ body {
     height:300px;
     text-align:center;
     overflow: hidden;
+    outline: 1px solid purple;
 }
 
 #rhythm {
     display:inline-block;
     white-space: nowrap;
+    outline: 1px solid red;
 }
 
 .preloader {
@@ -56,6 +58,7 @@ body {
 .system {
     display:inline-block;
     margin-top:40px;
+    outline: 1px solid blue;
 }
 
 .first {
@@ -64,16 +67,20 @@ body {
 
 .measure {
     display:inline-block;
+    outline: 1px solid green;
 }
 
 .note {
     display:inline-block;
     opacity:0;
     vertical-align: bottom;
+    outline: 1px solid orange;
 }
 
 .spacer {
+    width:0px;
     height:10px;
+    background-color:red;
     display:inline-block;
 }
 

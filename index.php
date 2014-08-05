@@ -139,7 +139,7 @@ try {
                 //Multiply img note height by ratio, then by 90% to provide some
                 //breathing room on either side of the rhythm
                 var newHeight = ($(".note").height() * ratio) * .9;
-                
+                //TODO Fix this to work correctly with two lines
                 //Set img note height to new height or 300px, whichever is smaller
                 if (newHeight < 300) {
                     $(".note").css("height",newHeight);
@@ -149,8 +149,8 @@ try {
                     $(".note").css("height",300);
                     $("#rhythm").css("margin-top",0);
                 }
-                //TODO - FIX THIS!!!!
                 //space-out notes on systems that are shorter than the rhythm
+                //TODO Remove console.logs
                 console.log ("Rhythm width: " + $("#rhythm").width());
                 $(".system").each(function(){
                     console.log("System width: " + $(this).width());
@@ -162,6 +162,8 @@ try {
                         var spacerSize = sizeDiff / spacerCount;
                         console.log("spacerSize: " + spacerSize);
                         $(this).find('.spacer').css("width",spacerSize);
+                    } else {
+                        $(this).find('.spacer').css("width",0);
                     }
                 }); 
             }
@@ -230,8 +232,10 @@ try {
             });
             
             //Resize window
+            var resizeWait;
             $(window).resize(function(){
-               scaleRhythm(); 
+                clearTimeout(resizeWait);
+                resizeWait = setTimeout(scaleRhythm(), 100);
             });
             
             //Note Options Tab Click
