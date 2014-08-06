@@ -277,12 +277,20 @@ try {
             
             //Note Options Tab Click
             $("#noteOptionsTab").click(function(){
-                showNoteOptions();
+                if ($("#noteOptions").is(":visible")) {
+                    clearOptions();
+                } else {
+                    showNoteOptions();
+                }
             });
             
             //General Options Tab Click
             $("#generalOptionsTab").click(function(){
-                showGeneralOptions();
+                if ($("#generalOptions").is(":visible")) {
+                    clearOptions();
+                } else {
+                    showGeneralOptions();
+                }
             });
             
             //Note label click
