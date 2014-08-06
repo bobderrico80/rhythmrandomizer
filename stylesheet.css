@@ -106,9 +106,7 @@ input[type="checkbox"] {
     margin-left:2px;
     margin-right:2px;;
     text-align:center;
-    border-top:1px solid black;
-    border-left:1px solid black;
-    border-right:1px solid black;
+    border:1px solid black;
     background-color:teal;
     color:white;
     cursor:pointer;
@@ -123,6 +121,9 @@ input[type="checkbox"] {
 .optionsPage {
     border:1px solid black;
     padding:10px;
+    position:relative;
+    top:-1px;
+    display:none;
 }
 
 .selectionWrapper {
@@ -163,6 +164,11 @@ input[type="checkbox"] {
     text-align:left;
     margin-left:10px;
     font-size:.95em;
+    cursor:pointer;
+}
+
+#noteOptions legend:hover {
+    text-decoration: underline;
 }
 
 .noteOptContainer {

@@ -41,7 +41,7 @@ try {
         <div id="options">
             <div id="optionTabs">
                 <ul>
-                    <li class="selected" id="generalOptionsTab">General Options</li>
+                    <li id="generalOptionsTab">General Options</li>
                     <li id="noteOptionsTab">Note Options</li>
                 </ul>
             </div>
@@ -170,12 +170,39 @@ try {
                 });
             }
             
+            //Slides down note options
+            function showNoteOptions(){
+                $("#noteOptionsTab").addClass("selected");
+                $("#generalOptionsTab").removeClass("selected");
+                $("#noteOptions").slideDown();
+                $("#generalOptions").hide();
+            }
+            
+            //Slides down general options
+            function showGeneralOptions(){
+                $("#generalOptionsTab").addClass("selected");
+                $("#noteOptionsTab").removeClass("selected");
+                $("#generalOptions").slideDown();
+                $("#noteOptions").hide();
+            }
+            
+            //Slides up options panels
+            function clearOptions() {
+                $("#generalOptionsTab").removeClass("selected");
+                $("#noteOptionsTab").removeClass("selected");
+                $("#generalOptions").slideUp();
+                $("#noteOptions").slideUp();
+            }
+            
             /*********************/
             /** EVENT LISTENERS **/
             /*********************/
             
             //Randomize button
             $("#randomize").click(function(){
+                
+                //slide up options panels
+                clearOptions();
                 
                 //display preloader
                 $(".preloader").css("display","block");
@@ -253,18 +280,39 @@ try {
             
             //Note Options Tab Click
             $("#noteOptionsTab").click(function(){
-                $("#noteOptionsTab").addClass("selected");
-                $("#generalOptionsTab").removeClass("selected");
-                $("#noteOptions").show();
-                $("#generalOptions").hide();
+                showNoteOptions();
             });
             
             //General Options Tab Click
             $("#generalOptionsTab").click(function(){
-                $("#generalOptionsTab").addClass("selected");
-                $("#noteOptionsTab").removeClass("selected");
-                $("#generalOptions").show();
-                $("#noteOptions").hide();
+                showGeneralOptions();
+            });
+            
+            //Note label click
+            $(".noteLabelWrapper").click(function(){
+                $(this).siblings("input[type='checkbox']").click();
+            });
+
+            //Note options legend click
+            $("legend").click(function(){
+                
+                //checks if all options in fieldset are checked
+                var checkedFlag = true;
+                $(this).parent().find("input[type='checkbox']").each(function(){
+                    if (!($(this).prop("checked"))) {
+                        checkedFlag = false;
+                    }
+                });
+                
+                if (checkedFlag) {
+                    $(this).parent().find("input[type='checkbox']").each(function(){
+                        $(this).prop("checked",false);
+                    });
+                } else {
+                    $(this).parent().find("input[type='checkbox']").each(function(){
+                        $(this).prop("checked",true);
+                    });
+                }
             });
         </script>
     </body>
