@@ -66,8 +66,7 @@ echo '<img class="note" src="notes/0.png" title="percussion clef" '
     . 'alt="percussion clef"/>';
 
 //Print time signature
-echo '<img class="note" src="notes/' . $timeSignature . '.png" title="time signature ' . 
-    $timeSignature . '/4" alt="time signature ' . $timeSignature . '/4"/>';
+echo '<img class="note" src="notes/' . $timeSignature . '.png" alt="time signature ' . $timeSignature . '/4"/>';
 echo '<div class="spacer"></div>';
 
 //Prints as many measures as indicated by the phrase length selection
@@ -78,8 +77,7 @@ while ($measure <= $phraseLength) {
     if (((($measure - 1) % 4) == 0) && ($phraseLength > 4) && ($system != 1)) {
         echo '<div class="system" id="s' . $system . '">';
         echo '<div class="measure" id="m' . $measure . '">';
-        echo '<img class="note" src="notes/0.png" title="percussion clef" '
-            . 'alt="percussion clef"/>';
+        echo '<img class="note" src="notes/0.png" alt="percussion clef"/>';
         echo '<div class="spacer"></div>';
     }
     
@@ -103,8 +101,8 @@ while ($measure <= $phraseLength) {
         }
         
         //Prints random note
-        echo '<img class="note" src="notes/' . $note['noteGraphic'] . '.png" title="' .
-                $note['noteName'] . '" alt="' . $note['noteName'] . '"/>';
+        echo '<img class="note" src="notes/' . $note['noteGraphic'] . 
+                '.png" alt="' . $note['noteName'] . '"/>';
         echo '<div class="spacer"></div>';
         
         //Adds random note's value to total number of beats
@@ -114,18 +112,18 @@ while ($measure <= $phraseLength) {
     
     if ($measure == $phraseLength) { 
         //If final measure, print double bar line
-        echo '<img class="note" src="notes/1.png" title="double barline" alt="double barline"/>';
+        echo '<img class="note" src="notes/1.png" alt="double barline"/>';
         echo '</div>'; //closes measure div
         echo '</div>'; //closes system div
     } elseif ((($measure % 4) == 0) && ($phraseLength > 4)) {
         //End the system after every 4th measure in phrases longer than 4.
-        echo '<img class="note" src="notes/bb.png" title="barline" alt="barline"/>';
+        echo '<img class="note" src="notes/bb.png" alt="barline"/>';
         echo '</div>'; //closes measure div
         echo '</div>'; //closes system div
         echo '<br>';
         $system++;
     } else {
-        echo '<img class="note" src=notes/b.png title="barline" alt="barline"/>';
+        echo '<img class="note" src=notes/b.png alt="barline"/>';
         echo '</div>'; //closes measure div
     }
     

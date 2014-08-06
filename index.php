@@ -27,16 +27,13 @@ try {
         <div id="banner">
             <h1>The Rhythm Randomizer</h1>
         </div>
-        <div id="rhythmContainer">
+        <div id="rhythmContainer" title="Click the rhythm to generate a new one!">
             <div class="preloader">
                 <img src="preloader.gif" alt="loading..." title="loading..."/>
             </div>
             <div id="rhythm">
 
             </div>
-        </div>
-        <div id="buttonBar">
-            <input type="button" id="randomize" value="Randomize"/>
         </div>
         <div id="options">
             <div id="optionTabs">
@@ -198,8 +195,8 @@ try {
             /** EVENT LISTENERS **/
             /*********************/
             
-            //Randomize button
-            $("#randomize").click(function(){
+            //Random Rhythm Click
+            $("#rhythmContainer").click(function(){
                 
                 //slide up options panels
                 clearOptions();
@@ -262,7 +259,7 @@ try {
             });
             
             //Page load
-            $(function(){$("#randomize").click();});
+            $(function(){$("#rhythmContainer").click();});
             
             //Resize window
             var resizeTimer;
