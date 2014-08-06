@@ -123,9 +123,7 @@ try {
             /** FUNCTIONS **/
             /***************/
             
-            //run the randomize function on page load
-            $(function(){$("#randomize").click();});
-            
+            //Scales the rhythm to fit the width of the screen.
             function scaleRhythm() {
                 //Get width of rhythm at full resolution
                 var rhythmWidth = $("#rhythm").width();
@@ -133,39 +131,41 @@ try {
                 //Get current screen/window width
                 var screenWidth = window.innerWidth;
                 
-                //Compute ratio between curren screen and window widths
-                var ratio =   screenWidth / rhythmWidth;
+                //Compute ratio between current screen and window widths
+                var ratio = screenWidth / rhythmWidth;
                 
-                //Multiply img note height by ratio, then by 90% to provide some
-                //breathing room on either side of the rhythm
-                var newHeight = ($(".note").height() * ratio) * .9;
-                //TODO Fix this to work correctly with two lines
-                //Set img note height to new height or 300px, whichever is smaller
-                if (newHeight < 300) {
-                    $(".note").css("height",newHeight);
-                    //code to center rhythm horizontally
-                    $("#rhythm").css("margin-top",((300 - $("#rhythm").height()) / 2));
-                } else {
-                    $(".note").css("height",300);
-                    $("#rhythm").css("margin-top",0);
+                //Get the total number of systems in the rhythm
+                var systemCount = $("#rhythm").find(".system").length;
+                
+                //Compute the new note height
+                var newNoteHeight = $(".note").height() * ratio * .9;
+                
+                //Compute the new rhythm height
+                var newRhythmHeight = systemCount * newNoteHeight + (systemCount - 1) * 40;
+                
+                //If the new rhythm height is larger than the container, shrink notes
+                if (newRhythmHeight > 300) {
+                    newNoteHeight -= (newRhythmHeight - 300) / systemCount;
                 }
-                //space-out notes on systems that are shorter than the rhythm
-                //TODO Remove console.logs
-                console.log ("Rhythm width: " + $("#rhythm").width());
+                
+                //Set new note height, and new top margin (to center rhythm in container)
+                $(".note").css("height",newNoteHeight);
+                $("#rhythm").css("margin-top",(300 - $("#rhythm").height()) / 2);
+            }
+            
+            //spaces notes evenly across multiple systems
+            function spaceNotes() {
                 $(".system").each(function(){
-                    console.log("System width: " + $(this).width());
+                    $(this).find('.spacer').css("width",0);
                     if ($(this).width() < $("#rhythm").width()) {
                         var sizeDiff = $("#rhythm").width() - $(this).width();
-                        console.log("sizeDiff: " + sizeDiff);
                         var spacerCount = $(this).find('.spacer').length;
-                        console.log("spacerCount: " + spacerCount);
                         var spacerSize = sizeDiff / spacerCount;
-                        console.log("spacerSize: " + spacerSize);
                         $(this).find('.spacer').css("width",spacerSize);
                     } else {
                         $(this).find('.spacer').css("width",0);
                     }
-                }); 
+                });
             }
             
             /*********************/
@@ -215,6 +215,7 @@ try {
                         $("#rhythm").html(response);
                         $(".note").imagesLoaded(function(){
                             scaleRhythm();
+                            spaceNotes();
                             $(".preloader").css("display","none");
                             $(".note").css("opacity","1");
                         });
@@ -231,11 +232,21 @@ try {
                 }); 
             });
             
+            //Page load
+            $(function(){$("#randomize").click();});
+            
             //Resize window
-            var resizeWait;
+            var resizeTimer;
             $(window).resize(function(){
-                clearTimeout(resizeWait);
-                resizeWait = setTimeout(scaleRhythm(), 100);
+                if (resizeTimer) {
+                    clearTimeout(resizeTimer);
+                }
+                scaleRhythm();
+                resizeTimer = setTimeout(function(){
+                    spaceNotes();
+                    resizeTimer = null;
+                }, 100);
+                
             });
             
             //Note Options Tab Click
