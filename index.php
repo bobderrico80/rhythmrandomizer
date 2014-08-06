@@ -104,13 +104,15 @@ try {
                         }
 
                         //creates checkboxes and images for each note group option
+                        echo '<div class="noteOptContainer">';
                         echo '<input type="checkbox" id="' . $row['noteGroupID'] . 
                                 '" title="' . $row['noteGroupName'] . '" value="' . 
                                 $row['noteGroupID'] . '" '. $checked . '/>';
                         echo '<div class="noteLabelWrapper">';
                         echo '<img class="noteLabel" src="notes/' . $row['noteGroupGraphic'] . 
                                 '.png" title="' . $row['noteGroupName'] . '" alt="' . $row['noteGroupName'] . '"/>';
-                        echo '</div>';
+                        echo '</div>'; //close noteLabelWrapper div
+                        echo '</div>'; //close noteOptContainer div
                         $lastCat = $row['noteCatName'];
 
                     }

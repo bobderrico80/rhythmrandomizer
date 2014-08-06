@@ -1,7 +1,13 @@
+/* GENERAL STYLES */
 body {
     margin:0px;
     padding:0px;
     font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+}
+
+input[type="checkbox"] {
+    width:15px;
+    height:15px;
 }
 
 #banner {
@@ -77,41 +83,45 @@ body {
     display:inline-block;
 }
 
+#options {
+    margin-left:auto;
+    margin-right:auto;
+    margin-top:20px;
+    margin-bottom:20px;
+    max-width:720px;
+}
+
 #optionTabs ul {
     list-style:none;
     margin:0px;
     padding:0px;
+    text-align:center;
 }
 
 #optionTabs li {
     display:inline-block;
     height:35px;
-    width:125px;
+    width:47%;
     line-height:35px;
-    padding-left:5px;
-    padding-right:5px;
     margin-left:2px;
-    margin-right:3px;
+    margin-right:2px;;
     text-align:center;
     border-top:1px solid black;
     border-left:1px solid black;
     border-right:1px solid black;
+    background-color:teal;
+    color:white;
+    cursor:pointer;
+    white-space:nowrap;
 }
 
 #optionTabs li.selected {
-    background-color:teal;
-    color:white;
-}
-
-#options {
-    width:800px;
-    margin-left:auto;
-    margin-right:auto;
+    background-color:white;
+    color:black;
 }
 
 .optionsPage {
     border:1px solid black;
-    min-height:305px;
     padding:10px;
 }
 
@@ -140,11 +150,11 @@ body {
 
 #noteOptions fieldset {
     display:inline-block;
-    width:370px;
     padding-top:5px;
     padding-bottom:20px;
-    padding-left:0px;
-    padding-right:0px;
+    width:320px;
+    padding-left:5px;
+    padding-right:5px;
     margin:5px;
     border:1px solid black;
 }
@@ -155,9 +165,14 @@ body {
     font-size:.95em;
 }
 
+.noteOptContainer {
+    display:inline-block;
+    white-space:nowrap
+}
+
 .noteLabelWrapper {
     display:inline-block;
-    width:50px;
+    width:36px;
     white-space:nowrap;
     overflow:hidden;
     text-align:left;
@@ -166,10 +181,35 @@ body {
 }
 
 img.noteLabel {
-    height:30px;
+    height:24px;
 }
 
 img[title="whole rest"] {
     position:relative;
-    left:-30px;
+    left:-24px;
+}
+
+/* FOR SCREENS NARROWER THAN 730PX */
+@media (max-width: 730px) {
+    #options {
+        margin-left:5px;
+        margin-right:5px;
+    }
+    
+    #options fieldset {
+        width:90%;
+    }
+}
+
+/* FOR SCREENS NARROWER THAN 320PX */
+@media (max-width: 320px) {
+    #generalOptions label {
+        text-align: left;
+        width:auto;
+        padding:auto;
+    }
+    
+    #generalOptions select {
+        width:90%;
+    }
 }
