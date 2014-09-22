@@ -1,19 +1,6 @@
 <?php
-//MySQL connection variables
-$hostname = 'localhost';
-$user = ini_get('mysqli.default_user');
-$pw = ini_get('mysqli.default_pw');
-$database = 'rhytxfpd_rhythmrandomizer';
-
-//Connect to database
-try {
-    $db = new PDO('mysql:host=' . $hostname . ';dbname=' . $database,$user,$pw);
-} catch(PDOException $e) {
-    echo $e->getMessage();
-    die();
-}
+  require_once('sqlconn.php');
 ?>
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -102,11 +89,11 @@ try {
 
                         //creates checkboxes and images for each note group option
                         echo '<div class="noteOptContainer">';
-                        echo '<input type="checkbox" id="' . $row['noteGroupID'] . 
-                                '" title="' . $row['noteGroupName'] . '" value="' . 
+                        echo '<input type="checkbox" id="' . $row['noteGroupID'] .
+                                '" title="' . $row['noteGroupName'] . '" value="' .
                                 $row['noteGroupID'] . '" '. $checked . '/>';
                         echo '<div class="noteLabelWrapper">';
-                        echo '<img class="noteLabel" src="notes/' . $row['noteGroupGraphic'] . 
+                        echo '<img class="noteLabel" src="notes/' . $row['noteGroupGraphic'] .
                                 '.png" title="' . $row['noteGroupName'] . '" alt="' . $row['noteGroupName'] . '"/>';
                         echo '</div>'; //close noteLabelWrapper div
                         echo '</div>'; //close noteOptContainer div
@@ -121,37 +108,37 @@ try {
             /***************/
             /** FUNCTIONS **/
             /***************/
-            
+
             //Scales the rhythm to fit the width of the screen.
             function scaleRhythm() {
                 //Get width of rhythm at full resolution
                 var rhythmWidth = $("#rhythm").width();
-                
+
                 //Get current screen/window width
                 var screenWidth = window.innerWidth;
-                
+
                 //Compute ratio between current screen and window widths
                 var ratio = screenWidth / rhythmWidth;
-                
+
                 //Get the total number of systems in the rhythm
                 var systemCount = $("#rhythm").find(".system").length;
-                
+
                 //Compute the new note height
                 var newNoteHeight = $(".note").height() * ratio * .9;
-                
+
                 //Compute the new rhythm height
                 var newRhythmHeight = systemCount * newNoteHeight + (systemCount - 1) * 40;
-                
+
                 //If the new rhythm height is larger than the container, shrink notes
                 if (newRhythmHeight > 300) {
                     newNoteHeight -= (newRhythmHeight - 300) / systemCount;
                 }
-                
+
                 //Set new note height, and new top margin (to center rhythm in container)
                 $(".note").css("height",newNoteHeight);
                 $("#rhythm").css("margin-top",(300 - $("#rhythm").height()) / 2);
             }
-            
+
             //spaces notes evenly across multiple systems
             function spaceNotes() {
                 $(".system").each(function(){
@@ -166,7 +153,7 @@ try {
                     }
                 });
             }
-            
+
             //Slides down note options
             function showNoteOptions(){
                 $("#noteOptionsTab").addClass("selected");
@@ -174,7 +161,7 @@ try {
                 $("#noteOptions").slideDown();
                 $("#generalOptions").hide();
             }
-            
+
             //Slides down general options
             function showGeneralOptions(){
                 $("#generalOptionsTab").addClass("selected");
@@ -182,7 +169,7 @@ try {
                 $("#generalOptions").slideDown();
                 $("#noteOptions").hide();
             }
-            
+
             //Slides up options panels
             function clearOptions() {
                 $("#generalOptionsTab").removeClass("selected");
@@ -190,45 +177,45 @@ try {
                 $("#generalOptions").slideUp();
                 $("#noteOptions").slideUp();
             }
-            
+
             /*********************/
             /** EVENT LISTENERS **/
             /*********************/
-            
+
             //Random Rhythm Click
             $("#rhythmContainer").click(function(){
-                
+
                 //slide up options panels
                 clearOptions();
-                
+
                 //display preloader
                 $(".preloader").css("display","block");
-                
+
                 //get general options from form
                 var timeSignature = $("#timeSignature").val();
                 var phraseLength = $("#phraseLength").val();
-                
+
                 //get note options from form
                 var checked = [];
                 $("#noteOptions :checked").each(function() {
                     checked.push($(this).val());
                 });
-                
+
                 //alert user and exit function if nothing is selected
                 if (checked.length < 1) {
                     alert("Please select at least one note value");
                     return;
                 }
-                
+
                 //format note option ids into a comma-delimited string
                 var noteOptions = "";
                 for (var i=0; i < checked.length; i++) {
                     noteOptions += checked[i] + "a";
                 }
-                
+
                 //remove the final comma and space
                 noteOptions = noteOptions.substr(0, noteOptions.length - 1);
-                
+
                 //ajax call
                 $.ajax("randomize.php", {
                     data : {
@@ -247,7 +234,7 @@ try {
                         });
                     },
                     error : function(xhr, status, errorThrown) {
-                        $("#rhythm").html("<p>There was a problem getting your rhythm.</p>" + 
+                        $("#rhythm").html("<p>There was a problem getting your rhythm.</p>" +
                                 "<p>Sorry about that.  Please click the Randomize " +
                                 "button again.  If you are still getting this error, " +
                                 "please <a href=\"mailto:bob@derricowebdesign.com\">" +
@@ -255,12 +242,12 @@ try {
                                 "<p>Error information: xhr: " + xhr + " | status: " +
                                 status + " | errorThrown: " + errorThrown + "</p>");
                     }
-                }); 
+                });
             });
-            
+
             //Page load
             $(function(){$("#rhythmContainer").click();});
-            
+
             //Resize window
             var resizeTimer;
             $(window).resize(function(){
@@ -272,9 +259,9 @@ try {
                     spaceNotes();
                     resizeTimer = null;
                 }, 100);
-                
+
             });
-            
+
             //Note Options Tab Click
             $("#noteOptionsTab").click(function(){
                 if ($("#noteOptions").is(":visible")) {
@@ -283,7 +270,7 @@ try {
                     showNoteOptions();
                 }
             });
-            
+
             //General Options Tab Click
             $("#generalOptionsTab").click(function(){
                 if ($("#generalOptions").is(":visible")) {
@@ -292,7 +279,7 @@ try {
                     showGeneralOptions();
                 }
             });
-            
+
             //Note label click
             $(".noteLabelWrapper").click(function(){
                 $(this).siblings("input[type='checkbox']").click();
@@ -300,7 +287,7 @@ try {
 
             //Note options legend click
             $("legend").click(function(){
-                
+
                 //checks if all options in fieldset are checked
                 var checkedFlag = true;
                 $(this).parent().find("input[type='checkbox']").each(function(){
@@ -308,7 +295,7 @@ try {
                         checkedFlag = false;
                     }
                 });
-                
+
                 if (checkedFlag) {
                     $(this).parent().find("input[type='checkbox']").each(function(){
                         $(this).prop("checked",false);
