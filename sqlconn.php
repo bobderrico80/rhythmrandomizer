@@ -7,11 +7,8 @@ $pw = 'adminpw';
 $database = 'rhythmrandomizer';
 
 //Connect to database
-try {
-    $db = new PDO('mysql:host=' . $hostname . ';dbname=' . $database,$user,$pw);
-} catch(PDOException $e) {
-    echo $e->getMessage();
-    die();
-}
+$mysqli = new mysqli($hostname, $user, $pw, $database);
 
-?>
+if ($mysqli->connect_errno) {
+  echo 'Failed to connect to MySQL: (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error;
+}

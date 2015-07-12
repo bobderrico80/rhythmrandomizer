@@ -65,12 +65,12 @@
                         ORDER BY
                                 noteCats.noteCatID,
                                 noteGroups.noteGroupID';
-                $stmt = $db->query($sql);
+                $result = $mysqli->query($sql);
             ?>
             <div id="noteOptions" class="optionsPage">
                 <?php
                     $lastCat = '';
-                    while ($row = $stmt->fetch()) {
+                    while ($row = $result->fetch_assoc()) {
                         //creates field set for items in the same category
                         if ($lastCat != $row['noteCatName']) {
                             if ($lastCat != '') {

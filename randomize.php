@@ -1,10 +1,12 @@
 <?php
 require_once('sqlconn.php');
 
+
 //Get values from GET
-$timeSignature = $_GET['timeSignature'];
-$phraseLength = $_GET['phraseLength'];
-$noteOptString = $_GET['noteOptions'];
+
+$timeSignature = $mysqli->real_escape_string($_GET['timeSignature']);
+$phraseLength = $mysqli->real_escape_string($_GET['phraseLength']);
+$noteOptString = $mysqli->real_escape_string($_GET['noteOptions']);
 
 //Split up note options string
 $noteOptions = explode('a', $noteOptString);
@@ -30,11 +32,18 @@ $sql = substr($sql, 0, strlen($sql) - 3);
 /* This will return a table with the name, graphic, and value of
  * the notes that the user selected prior to submitting the form
  */
-$stmt = $db->query($sql);
-$result = $stmt->fetchAll();
+$noteset = array();
+
+if ($result = $mysqli->query($sql)) {
+
+  while($row = $result->fetch_assoc()) {
+    array_push($noteset, $row);
+  }
+
+}
 
 //Get the total number of options selected
-$numOpts = count($result);
+$numOpts = count($noteset);
 
 /***************************/
 /** BEGIN PRINTING RHYTHM **/
@@ -81,7 +90,7 @@ while ($measure <= $phraseLength) {
         $random = rand(0, $numOpts - 1);
 
         //Get the random note from results
-        $note = $result[$random];
+        $note = $noteset[$random];
 
         //Continues if chosen note will not fit in the measure
         if ($beats + $note['noteValue'] > $timeSignature) {
